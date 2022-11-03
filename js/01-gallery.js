@@ -16,6 +16,8 @@ const getListGallery = galleryItems.map((item) => getGalleryItem(item));
 
 console.log(getListGallery);
 
+let ImgActive = null;
+
 const refs = {
   list: document.querySelector(`.gallery`),
 };
@@ -26,17 +28,38 @@ refs.list.insertAdjacentHTML(`beforeend`, getListGallery.join(``));
 
 console.log(galleryItems);
 
-// _____Шаблон елемента галереї
+refs.list.addEventListener(`click`, onGalleryClick);
 
-{
-  /* <div class="gallery__item">
-  <a class="gallery__link" href="large-image.jpg">
-    <img
-      class="gallery__image"
-      src="small-image.jpg"
-      data-source="large-image.jpg"
-      alt="Image description"
-    />
-  </a>
-</div>; */
+function onGalleryClick(event) {
+  event.preventDefault();
+
+  if (event.target.nodeName !== `IMG`) {
+    return;
+  }
+
+  const CurrentActiveImg = document.querySelector(`.img--active`);
+  console.log(CurrentActiveImg);
+
+  if (CurrentActiveImg) {
+    event.target.classList.remove(`.img--active`);
+  }
+
+  const nextImgActive = event.target;
+  nextImgActive.classList.add(`.img--active`);
+  console.log(event.target);
+
+  ImgActive = nextImgActive.dataset.source;
+  console.log(ImgActive);
+
+  const instance = basicLightbox.create(`
+    <img src="${ImgActive}" width="800" height="600">
+`);
+
+  instance.show();
+
+  refs.list.addEventListener(`keydown`, (event) => {
+    if (event.code === "Escape") {
+      instance.close();
+    }
+  });
 }
