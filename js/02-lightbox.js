@@ -46,9 +46,24 @@ function onGalleryClick(event) {
   ImgActive = nextImgActive.getAttribute(`src`);
   console.log(ImgActive);
 
-  var lightbox = new SimpleLightbox(".gallery a", {});
+  var lightbox = new SimpleLightbox(`.gallery a`, {
+    captionsData: `alt`,
+    captionPosition: `bottom`,
+    captionDelay: `250 ms`,
+  });
 
-  //   var lightbox = $(".gallery a").simpleLightbox({});
+  //   var gallery = $(".gallery a").simpleLightbox();
+
+  //   let gallery = new SimpleLightbox(".gallery a");
+  //   gallery.on("show.simplelightbox", function () {
+  //     //   captionsData: `title: ${galleryItems.description}`,
+  //     //   captionPosition: `bottom`,
+  //   });
+
+  // captionsData: `title: ${galleryItems.description}`,
+  // captionPosition: `bottom`,
+
+  // var lightbox = $(".gallery a").simpleLightbox({});
 
   //   const instance = basicLightbox.create(`
   //       <img src="${ImgActive}" width="800" height="600">
