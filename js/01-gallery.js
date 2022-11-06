@@ -51,6 +51,14 @@ function onGalleryClick(event) {
   ImgActive = nextImgActive.dataset.source;
   console.log(ImgActive);
 
+  const SelectedImgs = new Set();
+  SelectedImgs.add(ImgActive);
+  console.log(SelectedImgs);
+
+  // console.log(ImgActive.classList.contains(`img--active`));
+
+  // ImgActive.classList.toggle(`.img--active`);
+
   const instance = basicLightbox.create(
     `
     <img src="${ImgActive}" width="800" height="600">
@@ -59,24 +67,25 @@ function onGalleryClick(event) {
 
   instance.show();
 
-  // refs.list.addEventListener(`keydown`, (event) => {
-  // if (event.code === "Escape") {
-  //   instance.close();
-  // }
-
   function onEscapeClick(event) {
     if (event.code === "Escape") {
       instance.close();
     }
 
     refs.list.removeEventListener(`keydown`, onEscapeClick);
+    console.log(`снимаю слушателя`);
   }
 
   refs.list.addEventListener(`keydown`, onEscapeClick);
+  console.log(`ставлю слушателя`);
 }
 
-// _____________
-// refs.list.addEventListener("click", (event) => {
-//   event.target.removeEventListener("click", onGalleryClick);
-//   console.log("click event listener was removed from img");
-// });
+// refs.list.addEventListener(`keydown`, (event) => {
+// if (event.code === "Escape") {
+//   instance.close();
+// }
+
+// _______________________
+
+// refs.list.removeEventListener(`click`, onGalleryClick);
+// console.log(`снимаю слушателя`);
