@@ -51,15 +51,32 @@ function onGalleryClick(event) {
   ImgActive = nextImgActive.dataset.source;
   console.log(ImgActive);
 
-  const instance = basicLightbox.create(`
+  const instance = basicLightbox.create(
+    `
     <img src="${ImgActive}" width="800" height="600">
-`);
+`
+  );
 
   instance.show();
 
-  refs.list.addEventListener(`keydown`, (event) => {
+  // refs.list.addEventListener(`keydown`, (event) => {
+  // if (event.code === "Escape") {
+  //   instance.close();
+  // }
+
+  function onEscapeClick(event) {
     if (event.code === "Escape") {
       instance.close();
     }
-  });
+
+    refs.list.removeEventListener(`keydown`, onEscapeClick);
+  }
+
+  refs.list.addEventListener(`keydown`, onEscapeClick);
 }
+
+// _____________
+// refs.list.addEventListener("click", (event) => {
+//   event.target.removeEventListener("click", onGalleryClick);
+//   console.log("click event listener was removed from img");
+// });
