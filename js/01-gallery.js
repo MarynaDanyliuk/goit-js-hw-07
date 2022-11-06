@@ -67,6 +67,15 @@ function onGalleryClick(event) {
 
   instance.show();
 
+  // const visible = basicLightbox.visible();
+
+  event.target.dataset.source.addEventListener(`click`, (event) => {
+    instance.close();
+
+    refs.list.removeEventListener(`click`, onGalleryClick);
+    console.log(`снимаю слушателя`);
+  });
+
   function onEscapeClick(event) {
     if (event.code === "Escape") {
       instance.close();
