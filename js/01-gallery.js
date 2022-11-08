@@ -12,25 +12,37 @@ const getGalleryItem = (galleryItems) => `<div class="gallery__item">
   </a>
 </div>`;
 
-const getListGallery = galleryItems.map((item) => getGalleryItem(item));
-
-console.log(getListGallery);
-
-let ImgActive = null;
-
 const refs = {
   list: document.querySelector(`.gallery`),
 };
 
-console.log(refs.list);
+const render = () => {
+  const getListGallery = galleryItems.map((item) => getGalleryItem(item));
 
-refs.list.insertAdjacentHTML(`beforeend`, getListGallery.join(``));
+  console.log(getListGallery);
 
-console.log(galleryItems);
+  refs.list.insertAdjacentHTML(`beforeend`, getListGallery.join(``));
+};
+
+// ___run__
+
+render();
+
+let ImgActive = null;
+
+// console.log(refs.list);
+// console.log(galleryItems);
 
 refs.list.addEventListener(`click`, onGalleryClick);
 
+// const onGalleryClick = (event) => {
+
+// }
+
 function onGalleryClick(event) {
+  // refs.list.removeEventListener(`click`, onGalleryClick);
+  // console.log(`снимаю слушателя`);
+
   event.preventDefault();
 
   if (event.target.nodeName !== `IMG`) {
@@ -49,7 +61,7 @@ function onGalleryClick(event) {
   console.log(event.target);
 
   ImgActive = nextImgActive.dataset.source;
-  console.log(ImgActive);
+  // console.log(ImgActive);
 
   const SelectedImgs = new Set();
   SelectedImgs.add(ImgActive);
@@ -67,14 +79,9 @@ function onGalleryClick(event) {
 
   instance.show();
 
-  // const visible = basicLightbox.visible();
-
-  // event.target.dataset.source.addEventListener(`click`, (event) => {
-  //   instance.close();
-
-  //   refs.list.removeEventListener(`click`, onGalleryClick);
-  //   console.log(`снимаю слушателя`);
-  // });
+  event.target.addEventListener(`click`, (event) => {
+    instance.close();
+  });
 
   function onEscapeClick(event) {
     if (event.code === "Escape") {
